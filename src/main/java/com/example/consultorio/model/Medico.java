@@ -1,13 +1,32 @@
 package com.example.consultorio.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
+@Entity
 public class Medico {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long codigo;
+
+    @NotBlank
     private String nome;
+
+    @NotBlank
     private String endereco;
+
+    @NotBlank
     private String telefone;
+
+    @NotBlank
     private String especializacao;
+
+    @NotBlank
     private List<String> disponibilidade;
 
     public long getCodigo() {

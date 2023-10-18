@@ -1,8 +1,6 @@
 package com.example.consultorio.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,9 +15,14 @@ public class Paciente {
     @NotBlank
     private String nome;
 
+    @OneToMany
     private List<Consulta> consultas;
 
+    @OneToMany
     private List<Prontuario> prontuarios;
+
+    @ManyToOne //Muitos pacientes para um convenio, ou seja, Many=paciente to One=convenio.
+    private Convenio convenios;
 
     @Size(min=0, max=40, message="Este campo só pode conter no máximo 40 caracteres.")
     @NotBlank

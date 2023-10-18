@@ -1,6 +1,7 @@
 package com.example.consultorio.model;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,8 +11,10 @@ public class Prontuario {
     @DateTimeFormat(pattern = "dd-mm-yyyy 00:00:00.000")
     private String data;
 
+    @ManyToOne
     private Paciente paciente;
 
+    @ManyToOne
     private Procedimento procedimento;
 
     @Size(max=70, message="Este campo só pode conter no máximo 70 caracteres")
