@@ -1,4 +1,4 @@
-package com.example.consultorio.model;
+package consultorio.com.models;
 
 import jakarta.persistence.*;
 

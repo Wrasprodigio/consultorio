@@ -1,11 +1,13 @@
-package com.example.consultorio.model;
+package consultorio.com.models;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
 public class Prontuario {
     @Id
     @DateTimeFormat(pattern = "dd-mm-yyyy 00:00:00.000")
