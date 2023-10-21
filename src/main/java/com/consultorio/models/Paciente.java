@@ -1,14 +1,16 @@
-package consultorio.com.models;
+package com.consultorio.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Paciente {
+public class Paciente implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long codigo;

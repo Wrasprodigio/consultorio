@@ -1,4 +1,4 @@
-package consultorio.com;
+package com.consultorio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

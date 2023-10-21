@@ -1,4 +1,4 @@
-package consultorio.com.models;
+package com.consultorio.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
