@@ -19,9 +19,6 @@ public class PacientesController {
     @Autowired
     PacienteService pacienteService;
 
-    //    public List<Paciente> listarTodosPacientes(){
-//        return pacienteService.listarTodosPacientes();
-//    }
     @GetMapping
     public ResponseEntity<Page<Paciente>> listarTodosPacientes(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(pacienteService.listarTodosPacientes(pageable));

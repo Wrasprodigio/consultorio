@@ -8,7 +8,6 @@ import java.util.List;
 public class Convenio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String nomeConvenio;
 
     @OneToMany // Um convenio para muitos pacientes, ou seja, One=convenio  Many=pacientes.
