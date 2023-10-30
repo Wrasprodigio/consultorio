@@ -1,6 +1,9 @@
 package com.consultorio.controllers;
 
+import com.consultorio.models.Convenio;
 import com.consultorio.models.Paciente;
+import com.consultorio.service.ConsultaService;
+import com.consultorio.service.ConvenioService;
 import com.consultorio.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/api/pacientes")
 public class PacientesController {
@@ -19,9 +24,33 @@ public class PacientesController {
     @Autowired
     PacienteService pacienteService;
 
+    @Autowired
+    ConvenioService convenioService;
+
+    @Autowired
+    ConsultaService consultaService;
+
+    @PostMapping("/associar-convenio/{nome}/{nomeConvenio}")
+    public ResponseEntity<String> associarPacienteAConvenio(
+            @PathVariable String nome,
+            @PathVariable String nomeConvenio) {
+
+        Paciente paciente = pacienteService.obterPacientePorNome(nome);
+        Convenio convenio = convenioService.obterConvenioPorNome(nomeConvenio);
+
+        if (paciente != null && convenio != null) {
+            paciente.setConvenio(convenio);
+            pacienteService.criarPaciente(paciente);
+            return ResponseEntity.ok("Paciente associado ao convênio com sucesso.");
+        } else {
+            return ResponseEntity.badRequest().body("Paciente ou convênio não encontrados.");
+        }
+    }
+
     @GetMapping
-    public ResponseEntity<Page<Paciente>> listarTodosPacientes(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(pacienteService.listarTodosPacientes(pageable));
+    public ResponseEntity<List<Paciente>> listarTodosPacientes(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.ASC) Paciente paciente) {
+        return ResponseEntity.status(HttpStatus.OK).body(pacienteService.listarTodosPacientes());
+
     }
 
     @GetMapping("/{nome}")

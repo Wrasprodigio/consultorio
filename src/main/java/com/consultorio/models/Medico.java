@@ -1,24 +1,22 @@
 package com.consultorio.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
+@Table(name = "medico")
 @Entity
 public class Medico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long codigo;
-
-    @NotBlank
     private String nome;
 
     @NotBlank
     private String endereco;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long codigo;
+
+    @NotBlank
 
     @NotBlank
     private String telefone;

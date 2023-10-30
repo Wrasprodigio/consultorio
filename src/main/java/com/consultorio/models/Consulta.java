@@ -1,5 +1,6 @@
 package com.consultorio.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
+@Table(name = "consulta")
 @Entity
 public class Consulta implements Serializable {
 
@@ -16,10 +18,14 @@ public class Consulta implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long codigo;
 
+    @JsonIgnore
     @ManyToOne //Muitas consultas para um paciente, ou seja, Many=consulta  One=paciente.
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "procedimento_id")
     private Procedimento procedimento;
 
     @NotBlank

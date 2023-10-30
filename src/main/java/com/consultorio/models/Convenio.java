@@ -1,8 +1,12 @@
 package com.consultorio.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
+@Table(name = "convenio")
 
 @Entity
 public class Convenio {
@@ -10,8 +14,16 @@ public class Convenio {
     @Id
     private String nomeConvenio;
 
-    @OneToMany // Um convenio para muitos pacientes, ou seja, One=convenio  Many=pacientes.
+    @OneToMany(mappedBy = "convenio")
     private List<Paciente> pacientes;
+
+    public List<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
+    }
 
     public String getNomeConvenio() {
         return nomeConvenio;

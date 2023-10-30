@@ -1,23 +1,43 @@
 package com.consultorio.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Table(name = "prontuario")
 @Entity
 public class Prontuario {
     @Id
     @DateTimeFormat(pattern = "dd-mm-yyyy 00:00:00.000")
     private String data;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "procedimento_id")
     private Procedimento procedimento;
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Procedimento getProcedimento() {
+        return procedimento;
+    }
+
+    public void setProcedimento(Procedimento procedimento) {
+        this.procedimento = procedimento;
+    }
 
     @Size(max=70, message="Este campo só pode conter no máximo 70 caracteres")
     @NotBlank

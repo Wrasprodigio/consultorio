@@ -1,5 +1,6 @@
 package com.consultorio.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -8,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.List;
 
+@Table(name = "paciente")
 @Entity
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,14 +21,16 @@ public class Paciente implements Serializable {
     @Id
     private String nome;
 
-    @OneToMany
+    @OneToMany(mappedBy = "paciente")
     private List<Consulta> consultas;
 
-    @OneToMany
+    @OneToMany(mappedBy = "paciente")
     private List<Prontuario> prontuarios;
 
-    @ManyToOne //Muitos pacientes para um convenio, ou seja, Many=paciente to One=convenio.
-    private Convenio convenios;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "convenio_id")
+    private Convenio convenio;
 
     @Size(min=0, max=40, message="Este campo só pode conter no máximo 40 caracteres.")
     @NotBlank
@@ -46,6 +50,29 @@ public class Paciente implements Serializable {
     @NotBlank
     private String observacao;
 
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
+    public List<Prontuario> getProntuarios() {
+        return prontuarios;
+    }
+
+    public void setProntuarios(List<Prontuario> prontuarios) {
+        this.prontuarios = prontuarios;
+    }
+
+    public Convenio getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
+    }
 
     public long getCodigo() {
         return codigo;

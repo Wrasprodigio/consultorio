@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/api/convenios")
 public class ConveniosController {
@@ -20,10 +22,21 @@ public class ConveniosController {
     private ConvenioService convenioService;
 
     @GetMapping
-    public ResponseEntity<Page<Convenio>> listarConvenios(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.ASC) Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(convenioService.listarConvenios(pageable));
+    public ResponseEntity<List<Convenio>> listarConvenios() {
+        List<Convenio> convenios = convenioService.listarConvenios();
+        return ResponseEntity.ok(convenios);
+
     }
 
+    @GetMapping("/{nome}")
+    public ResponseEntity<Convenio> buscarConvenio(@PathVariable String nome) {
+        Convenio convenio = convenioService.obterConvenioPorNome(nome);
+        if (convenio != null) {
+            return new ResponseEntity<>(convenio, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PostMapping
     public ResponseEntity<Convenio> cadastrarConvenio(@RequestBody Convenio convenio){
         Convenio novoConvenio = convenioService.cadastrarConvenio(convenio);
